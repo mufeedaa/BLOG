@@ -1,0 +1,50 @@
+{% extends 'userpanel/user_base.html' %}
+{% load static %}
+{% block title %} 
+Blog | Drafted Blogs
+
+{% endblock %}
+
+{% block content %}
+<div class="container-xxl flex-grow-1 container-p-y">
+  <h5 class="pb-1 mb-4"><b>Drafted Blogs</b></h5>
+  <!-- <div class="container-xxl flex-grow-1 container-p-y" style="background-color: white;"> -->
+  <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row mb-5">
+     {% for blog in blogs %}
+     <div class="col-md col-lg-12">
+       <div class="card mb-3">
+         <div class="row g-0">
+           <div class="col-md-4">
+            <img class="card-img card-img-left"src="{{ blog.blog_image.url }}" alt="Card image" height="100%" />
+           </div>
+           <div class="col-md-8">
+             <div class="card-body">
+             <h5 class="card-title">{{ blog.title }}</h5>
+             <p class="card-text"><small class="text-muted">WRITTEN BY {{ blog.author}}</small>
+             <small class="text-muted">Published on :{{ blog.created_at}}</small></p>
+             <p class="card-text">{{ blog.content|truncatewords:30}}
+               
+             </p>
+             <p class="card-text"><small class="text-muted">Updated on :{{ blog.updated_at }} </small></p>
+           
+             <div style="padding-left: 30%;">
+                <a href="{% url 'user_viewblog' blog.id %}" class="btn btn-outline-primary " style="background-color: brown; color: white;" >VIEW MORE</a>
+            
+            <a href="{% url 'user_editblog' blog.id %}" class="btn btn-outline-primary "  >EDIT </a>
+          </div>
+          </div>
+        </div>
+          </div>
+       </div>
+     </div>
+     {% empty %}
+           <p>No draft blogs available </p> 
+          
+     {% endfor %}
+    </div>
+</div>
+  <!-- </div> -->
+</div>
+
+{% endblock %}

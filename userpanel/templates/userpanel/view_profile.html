@@ -1,0 +1,89 @@
+{% extends 'userpanel/user_base.html' %}
+{% load static %}
+{% block title %} 
+Blog | VIEW PROFILE 
+
+{% endblock %}
+
+{% block content %}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h2>Accout settings</h2><br>
+    
+    <div class="container-xxl flex-grow-1 container-p-y" style="background-color: white;">
+      <div class="container-fluid"  ><h5 style="color: black;">Profile Details: </h5></div>
+<div class="d-flex align-items-start align-items-sm-center gap-4">
+    <img
+      src="{{ profile.profile_image.url }}"
+      alt="user-avatar"
+      class="d-block rounded"
+      height="100"
+      width="100"
+      id="uploadedAvatar"
+    />
+    <div class="button-wrapper">
+      <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+        <span class="d-none d-sm-block">VIEW IDPROOF</span><img
+        src="{{ profile.id_proof.url }}"
+        alt="user-avatar"
+        class="d-block rounded"
+        height="100"
+        width="100"
+        id="uploadedAvatar"
+      />
+        <i class="bx bx-upload d-block d-sm-none"> </i>
+       
+      </label>
+      
+
+     
+    </div>
+  </div>
+  <hr class="my-0" />
+  <div class="card-body">
+ 
+
+      <div class="row">
+        <div class="mb-3 col-md-6">
+          <label for="firstName" class="form-label">First Name</label>
+          <p><small class="text-muted">{{ logged_user.first_name }}</small></p>
+        </div>
+        <div class="mb-3 col-md-6">
+          <label for="lastName" class="form-label">Last Name</label>
+          <p><small class="text-muted">{{ logged_user.last_name }}</small></p>
+        </div>
+        <div class="mb-3 col-md-6">
+          <label for="email" class="form-label">E-mail</label>
+          <p><small class="text-muted">{{ logged_user.email }}</small></p>
+        </div>
+        <div class="mb-3 col-md-6">
+          <label for="organization" class="form-label">Username</label>
+          <p><small class="text-muted">{{ logged_user.username }}</small></p>
+        </div>
+        <div class="mb-3 col-md-6">
+          <label class="form-label" for="phoneNumber">Phone Number</label>
+          <div class="input-group input-group-merge">
+            <p><small class="text-muted">{{ profile.phone }}</small></p>
+          </div>
+        </div>
+        <div class="mb-3 col-md-6">
+          <label for="address" class="form-label">Badge</label>
+         <p><small class="text-muted">BLOGGER</small></p>
+        </div>
+        <div class="mb-3 col-md-6">
+          <label for="address" class="form-label">About</label>
+         <p><small class="text-muted">{{ profile.profile_description}}</small></p>
+        </div>
+       
+       <div>
+        <a href="{% url 'user_editprofile'  %}" class="btn btn-outline-primary " style="background-color: blue;" >EDIT PROFILE</a>
+            
+       </div>
+      
+        
+     
+   
+    
+  </div>
+  </div>
+</div>
+  {% endblock %}

@@ -1,0 +1,97 @@
+{% extends 'adminpanel/admin_base.html' %}
+{% load static %}
+{% block title %} 
+Blog | Users
+
+{% endblock %}
+
+{% block content %}
+
+<h5 class="card-header"><b>Users List </b></h5>
+<div style="padding-left: 60%;">
+  <a href="{% url 'admin_activeusers' %}" class="btn btn-outline-primary "  >ACTIVE USERS</a>
+  <a href="{% url 'admin_inactiveusers' %}" class="btn btn-outline-primary "  >INACTIVE USERS</a>
+ </div>
+<div class="container-xxl flex-grow-1 container-p-y">
+  
+<div class="card">
+ 
+  
+  <div class="card">
+    <h5 class="card-header">All Users</h5>
+   
+    <div class="table-responsive text-nowrap">
+      <table class="table">
+        <thead class="table-dark">
+          <tr>
+            <th>First Name</th>
+            <th>Second Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody class="table-border-bottom-0">
+          {% for user in users %}
+          
+
+          
+          <tr>
+            <td><i class="fab fa-react fa-lg text-info me-3"></i> {{user.first_name }}</td>
+            <td>{{user.last_name }}</td>
+            <td>
+              {{user.email }}
+            </td>
+            <td>  {{ user.profile.phone }} </td>
+            <td>
+              <form action="{% url 'admin_userstatus' user.id %}" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="user_id" value="{{ user.id }}" >
+                {% if user.is_active %}
+                <button type="submit" name="Status" value="deactivate" class="btn btn-outline-primary">DEACTIVATE</button>
+                {% else %}
+                <button type="submit" name="Status" value="activate" class="btn btn-outline-primary">ACTIVATE</button>
+                {% endif %}
+              </form>
+            </td>
+            <td>
+              <div class="dropdown">
+                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                  <i class="bx bx-dots-vertical-rounded"></i>
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{% url 'admin_viewuser' user.id %}"
+                    ><i class="bx bx-edit-alt me-1"></i> View Profile</a
+                  >
+                  <a class="dropdown-item" href="{% url 'admin_userbloglist' user.id %}"
+                    ><i class="bx bx-table me-1"></i> View Blogs</a
+                  >
+                </div>
+              </div>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="6"> No users available </td>
+          </tr>
+          {% endfor %}
+         
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+
+
+  
+ 
+</div>
+</div>
+
+
+{% endblock %}
+
+
+
+

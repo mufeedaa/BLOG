@@ -1,0 +1,57 @@
+{% extends 'adminpanel/admin_base.html' %}
+{% load static %}
+{% block title %} 
+Blog | ACTIVE USERS 
+
+{% endblock %}
+
+{% block content %}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="card">
+ 
+  
+        <div class="card">
+          <h5 class="card-header">Active Users</h5>
+         
+          <div class="table-responsive text-nowrap">
+            <table class="table">
+              <thead class="table-dark">
+                <tr>
+                  <th>First Name</th>
+                  <th>Second Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                 
+                 
+                </tr>
+              </thead>
+              <tbody class="table-border-bottom-0">
+                {% for user in users %}
+                
+                <tr>
+                  <td><i class="fab fa-react fa-lg text-info me-3"></i> {{ user.first_name }}</td>
+                  <td>{{ user.last_name }}</td>
+                  <td>
+                    {{ user.email }}
+                  </td>
+                  <td>  {{ user.profile.phone }} </td>
+                  
+                  
+                </tr>
+                {% empty %}
+           <tr><td><p>No active users available </p> </td></tr>
+                
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+      
+      
+        
+       
+      </div>
+
+</div>
+{% endblock %}

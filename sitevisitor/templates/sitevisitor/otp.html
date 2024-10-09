@@ -1,0 +1,29 @@
+{% extends 'sitevisitor/site_base.html' %}
+{% load static %}
+
+{% block title %} 
+Blog | Sitehome 
+
+{% endblock %}
+{% block content %}
+    <div class="container p-5">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-5 mt-5">
+                <div class="bg-white p-5 rounded-3 shadow-sm border">
+                    <div>
+                        
+                            <form method="POST" action="{% url 'site_otp' %}">
+                                {% csrf_token %}
+                               {{ form.as_p }}
+
+                               <input type="submit" value="verify otp">
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}

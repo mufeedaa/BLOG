@@ -1,0 +1,30 @@
+
+{% extends 'userpanel/user_base.html' %}
+{% load static %}
+{% block title %} 
+Blog | userhome
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="container-xxl flex-grow-1 container-p-y" >
+    <div class="container-xxl flex-grow-1 container-p-y"   style="background-color: white; size: 80%;">
+
+   
+   <h2> WELCOME !!<h4 style="color: black;">{{ logged_user.username }}</h4> </h2><br>
+  
+    <h3> INSTRUCTION OF ADDING A BLOG </h3><br>
+    <div style="color: black;">
+    1.Sign in to Blogger.<br><br>
+    2.On the left, click create a blog. <br><br>
+    3.Enter a name for your blog.<br><br>
+    4.Enter description of your blog.<br><br>
+    5.Upload blog picture and select your blog is published or drafted blog.<br><br>
+    6.Click Save.<br>
+
+  </div>
+  </div>
+</div> 
+    
+  {% endblock %}

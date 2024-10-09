@@ -1,0 +1,22 @@
+{% extends 'userpanel/user_base.html' %}
+{% load static %}
+{% block title %} 
+Blog | addblog 
+
+{% endblock %}
+
+{% block content %}
+<div class="container-xxl flex-grow-1 container-p-y">
+<h2>Create a new Blog</h2><br>
+
+<div class="container-xxl flex-grow-1 container-p-y" style="background-color: white;">
+<form method="post" enctype="multipart/form-data" >
+    {% csrf_token %}
+    {{ form.as_p }}
+    <!-- <a href="{% url 'user_home' %}"></a> -->
+    <input type="submit" value="POST" class="btn btn-primary" >
+    
+</form>
+</div>
+</div>
+{% endblock %}

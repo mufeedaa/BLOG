@@ -1,0 +1,98 @@
+{% extends 'adminpanel/admin_base.html' %}
+{% load static %}
+{% block title %} 
+Blog | View blog 
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+  <h2><b> Blogs </b></h2><br>
+   
+
+  <div class="container-xxl flex-grow-1 container-p-y" style="background-color: white;">
+<div class="row mb-5">
+  <h5 class="card-title">{{ blog.title }}</h5>
+  <div class="col-md-6 col-lg-12 mb-3">
+    <div class="card h-100">
+      <img class="card-img-top" src="{{ blog.blog_image.url }}" alt="Card image cap" height="40%" />
+      <div class="card-body">
+        
+        <p class="card-text">
+          {{ blog.content}}
+        </p>
+        <p class="card-text"><small class="text-muted">WRITTEN BY {{ blog.author}}</small>
+          <small class="text-muted">Published on :{{ blog.created_at}}</small></p>
+          <p class="card-text"><small class="text-muted">Updated on :{{ blog.updated_at }} </small></p>
+       
+          <div>
+            
+              <form method="post" enctype="multipart/form-data" >
+                {% csrf_token %}
+                <!-- {{ form.as_p }} -->
+
+                <!-- <input type="submit" value="POST" class="btn btn-primary"  >  -->
+            </form>
+             
+          
+          </div>
+          <br><br>
+          <div>
+          <h5>Comments</h5>    
+          {% for comment in comments %}
+          <div>
+            <table>
+              <tr>
+           <td> <p><strong> {{ comment.author }} </strong></p></td>
+          <td rowspan="3">
+            <div style="padding-left: 600%;">
+            {% if user.is_staff %} 
+          
+            {% if comment.status == 'Hidden' %}
+            <form action="{% url 'admin_showcomments' comment.id %}" method="POST" style="display: inline;">
+              {% csrf_token %}
+              <input type="hidden" name="comment_id" value="{{ comment.id }}" >
+                <button type="submit" name="show" value="show" class="btn btn-outline-primary" >SHOW</button>
+
+            </form>
+            {% else %}
+                <form action="{% url 'admin_hidecomments' comment.id %}" style="display: inline;">
+                  {% csrf_token %}
+                  <input type="hidden" name="comment_id" value="{{ comment.id }}" >
+                  <button type="submit" name="hide" value="hide" class="btn btn-outline-warning" >HIDE</button>
+                </form>
+               
+                {% endif %}
+                {% endif %}
+              </div>
+
+          </td>
+          </tr> 
+           <tr><td><p> {{ comment.comment }} </p></td></tr>
+            <tr><td><p><small> {{ comment.created_at }} </small></p></td></tr>
+
+              
+            
+               
+                 
+                
+
+              
+
+            
+            </table>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      
+    </div>
+  </div>
+   
+</div>
+  </div>
+</div>
+
+  
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'adminpanel/admin_base.html' %}
+{% load static %}
+{% block title %} 
+Blog | Hidden Blogs
+
+{% endblock %}
+
+{% block content %}
+<div class="container-xxl flex-grow-1 container-p-y">
+<h5 class="pb-1 mb-4"><b>Hidden Blogs</b></h5>
+<div class="container-xxl flex-grow-1 container-p-y">
+   <div class="row mb-5">
+    {% for blog in blogs %}
+    <div class="col-md col-lg-12">
+      <div class="card mb-3">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img class="card-img card-img-left"src="{{ blog.blog_image.url }}" alt="Card image" height="80%"/>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{ blog.title }}</h5>
+              <p class="card-text"><small class="text-muted">WRITTEN BY {{ blog.author}}</small>
+              <small class="text-muted">Published on :{{ blog.created_at}}</small></p>
+              <p class="card-text">{{ blog.content}}
+                This is a wider card with supporting text below as a natural lead-in to additional content.
+                This content is a little bit longer.
+              </p>
+              <p class="card-text"><small class="text-muted">Updated on :{{ blog.updated_at }} </small></p>
+              
+             <div style="padding-left: 30%;">
+              <a href="{% url 'admin_blogview' blog.id %}" class="btn btn-outline-primary " style="background-color: brown;" >VIEW MORE</a>
+               
+
+              <form action="{% url 'admin_blogstatus' blog.id %}" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="blog_id" value="{{ blog.id }}" >
+                {% if blog.status == 'HIDDEN' %}
+                <button type="submit" name="show" value="show" class="btn btn-outline-primary">SHOW</button>
+                {% else %}
+                <button type="submit" name="hide" value="hide" class="btn btn-outline-primary">HIDE</button>
+                {% endif %}
+              </form>
+              
+          </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+              <p>No blogs available.</p>
+    {% endfor %}
+ </div>
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'userpanel/user_base.html' %}
+{% load static %}
+{% block title %} 
+Blog | Viewblog
+
+{% endblock %}
+
+{% block content %}
+<div class="container-xxl flex-grow-1 container-p-y">
+  <h2><b> Blogs </b></h2><br>
+
+  <div class="container-xxl flex-grow-1 container-p-y" style="background-color: white;">
+<div class="row mb-5">
+  <h5 class="card-title">{{ blog.title }}</h5>
+  <div class="col-md-6 col-lg-12 mb-3">
+    <div class="card h-100">
+      <img class="card-img-top" src="{{ blog.blog_image.url }}" alt="Card image cap" height="40%" />
+      <div class="card-body">
+        
+        <p class="card-text">
+          {{ blog.content}}
+        </p>
+        <p class="card-text"><small class="text-muted">WRITTEN BY {{ blog.author}}</small>
+          <small class="text-muted">Published on :{{ blog.created_at}}</small></p>
+          <p class="card-text"><small class="text-muted">Updated on :{{ blog.updated_at }} </small></p>
+       
+          <div>
+            
+              <form method="post" enctype="multipart/form-data" >
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <input type="submit" value="POST" class="btn btn-primary"  > 
+            </form>
+             
+          
+          </div><br><br>
+          <div>
+          <h5>Comments</h5>
+          {% for comment in comments %}
+          <div>
+         
+              
+            <table >
+              <tr>
+                <td><strong> {{ comment.author }} </strong></td>
+                <td rowspan="3">
+                  {% if comment.author == logged_user %}
+                  <div style="padding-left: 400px;">
+                  <div class="dropdown">
+                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                     <div class="dropdown-menu" >
+                  <a class="dropdown-item" href="{% url 'user_editcomment' comment.id %}"
+                    ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                  >
+                  <a class="dropdown-item" href="{% url 'user_deletecomment' comment.id %}"
+                    ><i class="fas fa-trash-alt"></i> Delete</a
+                  >
+                </div></div>
+              </div>{% endif %}
+             </td>
+              </tr>
+
+              <tr><td>{{ comment.comment }}</td></tr>
+              <tr><td><small> {{ comment.created_at }} </small></td></tr>
+            </table>
+
+
+
+           
+          </div>
+          {% empty %}
+              <p>No comments available.</p>
+          {% endfor %}
+        </div>
+      </div>
+      
+    </div>
+  </div>
+   
+</div>
+  </div>
+</div>
+
+{% endblock %}
